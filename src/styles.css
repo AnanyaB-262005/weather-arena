@@ -1,0 +1,81 @@
+/* ==== Global Font ==== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #73b9ff, #dff1ff);
+  background-attachment: fixed;
+  color: #1e1e1e;
+}
+
+/* Cloud pattern overlay */
+.cloud-bg {
+  background-image: url("https://i.imgur.com/eMZfHNr.png");
+  background-repeat: repeat;
+  opacity: 0.13;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Center container */
+.app-container {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 20px;
+}
+
+/* Pretty card */
+.card {
+  background: rgba(255, 255, 255, 0.35);
+  padding: 35px;
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Title */
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 2.5rem;
+  text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+/* Inputs */
+select, button {
+  padding: 12px;
+  margin: 8px 0;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+}
+
+button {
+  background: #0077ff;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #005fcc;
+}
+
+/* Weather info block */
+.weather-data {
+  margin-top: 18px;
+  font-size: 1.2rem;
+  color: #003366;
+}

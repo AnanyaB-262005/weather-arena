@@ -1,0 +1,54 @@
+.assistant-box {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.assistant-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.assistant-sub {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.assistant-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  resize: none;
+  font-size: 14px;
+}
+
+.assistant-btn {
+  padding: 10px;
+  border-radius: 8px;
+  background: #00c6ff;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.assistant-btn:hover {
+  background: #0094cc;
+}
+
+.assistant-response {
+  margin-top: 10px;
+  background: rgba(0,0,0,0.3);
+  padding: 12px;
+  border-radius: 10px;
+}

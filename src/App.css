@@ -1,0 +1,687 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+body {
+  background: linear-gradient(to bottom, #d0f0ff, #ffffff);
+  color: #444;
+}
+
+/* Clouds */
+.clouds {
+  position: fixed;
+  top:0; left:0;
+  width:300%;
+  height:100%;
+  background: url("https://i.imgur.com/8KZt8VA.png") repeat-x;
+  animation: moveClouds 120s linear infinite;
+  opacity:0.2;
+  z-index:0;
+}
+@keyframes moveClouds {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Layout */
+.app-wrapper { display:flex; justify-content:center; align-items:center; height:100vh; position:relative; z-index:1; }
+.center-container { width:100%; max-width:1100px; height:100%; display:flex; flex-direction:column; gap:15px; padding:20px; box-sizing:border-box; }
+.main-title { text-align:center; font-size:28px; font-weight:700; color:#2b0859; }
+.city-selector { text-align:center; margin-bottom:10px; }
+.dropdown { padding:10px 12px; font-size:16px; border-radius:8px; border:1px solid #aaa; }
+
+/* Grid */
+.cards-grid { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:20px; height: calc(100% - 90px); }
+
+/* Cards */
+.card {
+  background:#ffffffcc; border-radius:20px; padding:20px;
+  box-shadow:0 12px 25px rgba(0,0,0,0.1);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.card-header { font-weight:600; font-size:18px; margin-bottom:10px; }
+.card > :not(.card-header) { flex:1; overflow-y:auto; padding:10px 0; }
+
+/* Top borders */
+.weather-card { border-top:5px solid #2196f3; }
+.flight-card { border-top:5px solid #4caf50; }
+.trip-card { border-top:5px solid #ff9800; }
+.insight-card { border-top:5px solid #f44336; }
+
+/* Weather Mini Card */
+.weather-mini-card { display:flex; flex-direction:column; justify-content:center; height:100%; }
+.weather-top { display:flex; justify-content:space-between; margin-bottom:10px; }
+.city-name { font-weight:600; }
+.weather-info { display:flex; justify-content:space-between; font-size:16px; }
+
+/* Responsive */
+@media(max-width:900px){
+  .cards-grid { grid-template-columns:1fr; grid-template-rows:repeat(4,1fr); height:auto; }
+}
+.weather-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.weather-city {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.weather-icon-inline {
+  font-size: 26px;
+}
+
+.weather-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  text-align: left;
+}
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+  z-index: 5;
+}
+
+.center-container {
+  position: relative;
+  z-index: 10;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #cfe9ff, #f9fcff);
+  transition: background 1s ease;
+  z-index: 0;
+}
+.sun, .moon {
+  position: fixed;
+  top: 40px;
+  right: 60px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.sun {
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, #fff7a8, #ffcc33);
+  box-shadow: 0 0 60px rgba(255, 200, 0, 0.6);
+}
+
+.moon {
+  display: none;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #fff, #dcdcdc);
+  box-shadow: 0 0 40px rgba(255,255,255,0.5);
+}
+.cloud-layer {
+  position: fixed;
+  top: 0;
+  width: 300%;
+  height: 40%;
+  background: url("https://i.imgur.com/8KZt8VA.png") repeat-x;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cloud-back {
+  opacity: 0.15;
+  animation: moveCloudsBack 180s linear infinite;
+}
+
+.cloud-front {
+  opacity: 0.25;
+  animation: moveCloudsFront 110s linear infinite;
+}
+
+@keyframes moveCloudsBack {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes moveCloudsFront {
+  to { transform: translateX(-70%); }
+}
+.rain-layer {
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.35),
+    rgba(255,255,255,0.35) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  animation: rainFall 0.5s linear infinite;
+  opacity: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+@keyframes rainFall {
+  to { background-position: 0 120px; }
+}
+.wind-layer {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: windMove 8s linear infinite;
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+@keyframes windMove {
+  to { background-position: 200px 0; }
+}
+.dashboard-title {
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+.auth-box {
+  width: 350px;
+  margin: 50px auto;
+  padding: 25px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.9);
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.auth-box input {
+  width: 90%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #aaa;
+}
+
+.auth-box button {
+  width: 95%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #2196f3;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-box button:hover {
+  background: #1976d2;
+}
+
+.auth-box .link {
+  color: #2196f3;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+/* AUTH BACKGROUND */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* CARD */
+.auth-card {
+  background: #ffffff;
+  width: 360px;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* BRAND */
+.brand {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1e3c72;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* INPUTS */
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* BUTTON */
+.primary-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+/* LINKS */
+.link {
+  color: #1e3c72;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 12px;
+  display: inline-block;
+}
+
+.footer-text {
+  font-size: 14px;
+  margin-top: 16px;
+}
+/* 🌤️ WEATHER AUTH BACKGROUND */
+.weather-auth-bg {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* SKY */
+.auth-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #87cefa, #e0f6ff);
+  z-index: 0;
+}
+
+/* SUN */
+.auth-sun {
+  position: absolute;
+  top: 60px;
+  right: 80px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #ffd700, #ffb703);
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.9;
+}
+
+/* CLOUDS */
+.auth-cloud {
+  position: absolute;
+  width: 220px;
+  height: 70px;
+  background: #fff;
+  border-radius: 50px;
+  opacity: 0.9;
+  filter: blur(1px);
+  animation: moveClouds 60s linear infinite;
+}
+
+.cloud-1 { top: 20%; left: -250px; animation-duration: 70s; }
+.cloud-2 { top: 35%; left: -300px; animation-duration: 90s; }
+.cloud-3 { top: 50%; left: -350px; animation-duration: 80s; }
+
+@keyframes moveClouds {
+  from { transform: translateX(0); }
+  to { transform: translateX(140vw); }
+}
+
+/* LOGIN CARD */
+.auth-card {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 18px;
+  width: 360px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* TEXT */
+.auth-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.auth-subtitle {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 25px;
+}
+
+/* INPUTS */
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+}
+
+/* BUTTON */
+.primary-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to right, #2563eb, #38bdf8);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* LINKS */
+.auth-link,
+.auth-switch {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.auth-switch span {
+  font-weight: 600;
+}
+.logout-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  color: #1e293b;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.logout-btn:hover {
+  background: white;
+}
+/* 🔴 SMALL LOGOUT BUTTON (TOP LEFT) */
+.logout-small-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+
+  background: rgba(255, 255, 255, 0.85);
+  color: #333;
+
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(6px);
+
+  transition: all 0.25s ease;
+  z-index: 9999;
+}
+
+.logout-small-btn:hover {
+  background: #ff5252;
+  color: white;
+  transform: translateY(-1px);
+}
+/* SIMPLE LOGOUT BUTTON - TOP LEFT */
+
+
+.logout-btn {
+  width: 8%;
+  padding: 12px;
+  background: linear-gradient(to right, #38bdf8);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer, #38bdf8 ;
+  
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+}
+/* ================= DASHBOARD CONTAINER ================= */
+.dashboard-container {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+/* ================= GRID ================= */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 30px;
+}
+
+/* ================= CARD BASE ================= */
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 18px;
+  min-height: 220px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* ================= CARD HEADERS ================= */
+.dashboard-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 6px;
+}
+
+/* ================= NO SCROLL INSIDE ================= */
+.dashboard-card * {
+  overflow: hidden;
+}
+/* ================= CARD ACCENT ================= */
+.dashboard-card {
+  position: relative;
+}
+
+.dashboard-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 6px;
+  border-radius: 16px 0 0 16px;
+}
+
+/* Individual colors */
+.weather-card::before {
+  background: linear-gradient(to bottom, #38bdf8, #0284c7);
+}
+
+.flight-card::before {
+  background: linear-gradient(to bottom, #a855f7, #6b21a8);
+}
+
+.trip-card::before {
+  background: linear-gradient(to bottom, #22c55e, #15803d);
+}
+
+.health-card::before {
+  background: linear-gradient(to bottom, #f97316, #c2410c);
+}
+.dashboard-card > * {
+  margin-bottom: 10px;
+}
+
+.dashboard-card > *:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-container {
+    margin: 20px;
+    padding: 20px;
+  }
+}
+.logout-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.logout-btn:hover {
+  background: #ef4444;
+  color: white;
+}
+/* ================= DASHBOARD OUTER BOX ================= */
+.dashboard-wrapper {
+  max-width: 1100px;
+  margin: 80px auto;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Title */
+.dashboard-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #0f172a;
+}
+
+/* ================= GRID LAYOUT ================= */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* ================= CARD OUTLINES ================= */
+.dashboard-card {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 200px;
+  border: 1px solid #e2e8f0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ================= COLORED LEFT STRIP ================= */
+.dashboard-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 6px;
+  border-radius: 16px 0 0 16px;
+}
+
+/* Card Colors */
+.weather-card::before {
+  background: #38bdf8;
+}
+
+.flight-card::before {
+  background: #a855f7;
+}
+
+.trip-card::before {
+  background: #22c55e;
+}
+
+.health-card::before {
+  background: #f97316;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-wrapper {
+    margin: 30px 16px;
+    padding: 20px;
+  }
+}
