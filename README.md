@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Weather Arena 🌦️
 
 Weather Arena is a React + Vite application that provides real-time weather updates, travel recommendations, and trip planning features.
@@ -18,4 +18,4 @@ Weather Arena is a React + Vite application that provides real-time weather upda
 ## Deployment
 Frontend is deployed on Netlify and backend services are handled by Supabase.
 
->>>>>>> 
+
